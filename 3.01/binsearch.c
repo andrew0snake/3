@@ -27,6 +27,8 @@ void main ()
     
     printf ( "\nWe found you number in %d.\n", place );
 
+    place = binsearch_my ( x, arr , size );
+
 } 
 
 
@@ -66,11 +68,19 @@ int binsearch_my ( int x, int v [], int n )
     
     high = n - 1;
     
-    while ( low <= high ){
+    while ( low < high ){
+        mid = ( high + low ) / 2;
+        if ( x < v [ mid ] ) {
+            high = mid;
+            printf ( "high = %d;\n", high );
+        }
+        else {
+            low = mid;
+            printf ( "low = %d;\n", low );
+        };
         
-        
-        
-    ]
+    };
 
+    printf ( "In the end we get low = %d; high = %d;\n", low, high );
 
 }
