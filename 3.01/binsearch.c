@@ -69,10 +69,13 @@ int binsearch_my ( int x, int v [], int n )
     
     high = n - 1;
     
-    while ( low <= high ){
+    if ( ( x < 0 ) || ( x > 1000 ) )
+        return ( -1 ); 
+    
+    while ( ( low < high ) || ( x != v [ mid ] ) ){
         mid = ( high + low ) / 2;
         printf ( "\nbefore cycle high = %d; low = %d; mid = %d;\n", high, low, mid );
-        if ( x <= v [ mid ] ) {
+        if ( x < v [ mid ] ) {
             high = mid - 1;
             printf ( "if_ high = %d;low = %d; mid = %d;\n", high, low, mid );
         }
@@ -85,9 +88,14 @@ int binsearch_my ( int x, int v [], int n )
             getchar ();
     };
     
-    if ( v [ mid ] < x )
-        x -= 1;
+//    if ( v [ mid ] < x )
+//        x -= 1;
 
     printf ( "In the end we get low = %d; high = %d; mid = %d; v [ mid ] = %d; x = %d;\n", low, high, mid, v [ mid ], x );
-
+    
+    if ( ( mid >= 0 ) && ( mid <= 999) )
+        return mid;
+    else
+        return  ( -1 );
+    
 }
