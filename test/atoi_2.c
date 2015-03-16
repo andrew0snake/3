@@ -6,7 +6,7 @@ void getline_my ( char line [] );
 void clean_text ( char text [] );
 void clean_array ( int array [] );
 void shellsort ( int v [], int n );
-void getarray_sort ( int sort [], char line [] );
+int getarray_sort ( int sort [], char line [] );
 
 
 void main ()
@@ -14,6 +14,8 @@ void main ()
 
     char line [ 100 ];
     int digit = 0;
+    int len = 0;
+    int i = 0;
     char choise = 0;
     int sort [ 100 ];
     char exit = 0;
@@ -38,7 +40,13 @@ void main ()
             exit = 1;
             break;
         case '2' :
-            getarray_sort ( sort, line );
+            len = getarray_sort ( sort, line );
+            shellsort ( sort, len );
+            printf ( "After sorting array seems so:" );
+            for ( i = 0; i < len; ++i ){
+                printf ( "%d,", sort [ i ] );
+            };
+            printf ( "\n" );
             exit = 1;
             break;
         default:
@@ -127,18 +135,24 @@ void shellsort ( int v [], int n )
         for ( i = gap; i < n; ++i ){
             printf ( "    i = %d;\n", i );
             for ( j = i - gap; j >= 0 && v [ j ] > v [ j + gap ]; j -= gap ) {
-                printf ( "        j = %d; v [ j = %d ] = %d; v [ ( j + gap ) = %d ] = %d;\n", j, j, v [ j ], j + gap, v [ j + gap ] );
+                printf ( "-----------------------------------------------------------\n" );
+                printf ( "        befire j = %d; v [ j = %d ] = %d; v [ ( j + gap ) = %d ] = %d;\n", j, j, v [ j ], j + gap, v [ j + gap ] );
                 temp = v [ j ];
                 v [ j ] = v [ j + gap ];
                 v [ j + gap ] = temp;
-                printf ( "  after j = %d; v [ j = %d ] = %d; v [ ( j + gap ) = %d ] = %d;\n", j, j, v [ j ], j + gap, v [ j + gap ] );
+                printf ( "         after j = %d; v [ j = %d ] = %d; v [ ( j + gap ) = %d ] = %d;\n", j, j, v [ j ], j + gap, v [ j + gap ] );
+                printf ( "         Now array seems so:" );
+                for ( temp = 0; temp < n; ++temp ){
+                    printf ( "%d,", v [ temp ] );
+                };
+                printf ( "\n" );
             };
         };
     };
 }
 
 
-void getarray_sort ( int sort [], char line [] )
+int getarray_sort ( int sort [], char line [] )
 
 {
     short int len = 0;
@@ -160,8 +174,9 @@ void getarray_sort ( int sort [], char line [] )
     
     for ( i = 0; i < len; ++i ){
         printf ( "sort [ %d ] = %d;\n", i, sort [ i ] );
-
-    }
+    };
+ 
+    return len;
 
 }
 
