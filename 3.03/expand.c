@@ -66,7 +66,9 @@ void main ()
             break;
         case '4':
             printf ( "Enter please string:\n" );
-            
+            clean_text ( short_line );
+            clean_text ( long_line );
+            expand_my ( short_line, long_line );
         case 'q':
             exit = 1;
             break;
@@ -217,10 +219,23 @@ void reverse_string ( char s [] )
     };
 }
 
-void expand_my ( char short_line [], char long_line [] );
+void expand_my ( char short_line [], char long_line [] )
 
 {
+    short int i = 0;
+    short int j = 0;
+
+    long_line [ 0 ] = short_line [ 0 ];
     
+
+    for ( i = 1, j = 1; i < ( strlen ( short_line ) - 1 ); ++i ){
+        if ( short_line [ i ] == '-' ) {
+            if ( ( short_line [ i - 1 ] >= 'a' ) && ( short_line [ i + 1 ] <= ) )
+        
+        }
+        
+        
+    }
 
 
 }
