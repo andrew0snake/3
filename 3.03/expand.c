@@ -9,25 +9,29 @@ void clean_array ( int array [] );
 void shellsort ( int v [], int n );
 int getarray_sort ( int sort [], char line [] );
 void reverse_string ( char s [] );
+void expand_my ( char short_line [], char long_line [] );
 
 
 void main ()
 {
 
     char line [ 100 ];
+    char short_line [ 30 ];
+    char long_line [ 300 ];
+    int sort [ 100 ];
     int digit = 0;
     int len = 0;
     int i = 0;
     char choise = 0;
-    int sort [ 100 ];
     char exit = 0;
 
     printf ( "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" );
-    printf ( "Chase please what you want to do:\n" );
+    printf ( "Choose please what you want to do (press q to exit):\n" );
     printf ( "Variants :\n" );
     printf ( "1. Convert from char to integer.\n" );
     printf ( "2. Shellsorting.\n" );
     printf ( "3. Reverse string.\n" );
+    printf ( "4. Expand string.\n" );
 
     exit = 0;
     while ( exit == 0 ){
@@ -58,6 +62,12 @@ void main ()
             getline_my ( line );
             reverse_string ( line );
             printf ( "After reverse string seens so:\n%s\n", line );
+            exit = 1;
+            break;
+        case '4':
+            printf ( "Enter please string:\n" );
+            
+        case 'q':
             exit = 1;
             break;
         default:
@@ -206,4 +216,13 @@ void reverse_string ( char s [] )
         printf ( "s [ i = %d ] = %c; s [ j = %d ] = %c;\n", i, s [ i ], j, s [ j ] );
     };
 }
+
+void expand_my ( char short_line [], char long_line [] );
+
+{
+    
+
+
+}
+
 
