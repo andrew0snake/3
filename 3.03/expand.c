@@ -68,7 +68,11 @@ void main ()
             printf ( "Enter please string:\n" );
             clean_text ( short_line );
             clean_text ( long_line );
+            getline_my ( short_line );
             expand_my ( short_line, long_line );
+            printf ( "After expand line seems so:%s\n", long_line );
+            exit = 1;
+            break;
         case 'q':
             exit = 1;
             break;
@@ -224,20 +228,33 @@ void expand_my ( char short_line [], char long_line [] )
 {
     short int i = 0;
     short int j = 0;
+    short int k = 0;
+    short int per = 0;
 
     long_line [ 0 ] = short_line [ 0 ];
     
-
+    printf ( "lenght of short_line = %3d;\n", strlen ( short_line ) );
     for ( i = 1, j = 1; i < ( strlen ( short_line ) - 1 ); ++i ){
+        printf ( "i = %3d; j = %3d;\n", i , j );
         if ( short_line [ i ] == '-' ) {
-            if ( ( short_line [ i - 1 ] >= 'a' ) && ( short_line [ i + 1 ] <= ) )
-        
-        }
-        
-        
-    }
-
-
+            if ( ( short_line [ i - 1 ] >= 'a' ) && ( short_line [ i + 1 ] <= 'z' ) ) {
+                long_line [ j - 1 ] = short_line [ i - 1 ];
+                printf ( "short_line [ i - 1 = %d ] = %d = %c; long_line [ j - 1 = %d ] = %c;\n", ( i - 1 ) , short_line [ i - 1 ], short_line [ i - 1 ], ( j - 1 ), long_line [ j - 1 ] );
+                for ( k = short_line [ i - 1 ] + 1; k <= short_line [ i + 1 ]; ++k ){
+                    long_line [ j ] = k;
+                    printf ( "long_line [ j = %3d ] = %c; k = %3d = %c;\n", j, long_line [ j ], k, k );
+                    ++j;
+                };
+                
+            };
+/*            else {
+                if () {
+                };
+                    else  
+            }*/
+        };        
+    };
+    printf ( "lenght of long_line = %3d;\n", strlen ( long_line ) );
 }
 
 
