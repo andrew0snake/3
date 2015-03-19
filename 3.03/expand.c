@@ -1,10 +1,13 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
+#define SSIZE 30
+#define LSIZE 300
+
 
 int atoi_2 ( char s [] );
 void getline_my ( char line [] );
-void clean_text ( char text [] );
+void clean_text ( char text [], short int size );
 void clean_array ( int array [] );
 void shellsort ( int v [], int n );
 int getarray_sort ( int sort [], char line [] );
@@ -39,7 +42,7 @@ void main ()
         choise = line [ 0 ];
         switch (choise) {
         case '1' :
-            clean_text ( line );
+            clean_text ( line, 100 );
             printf ( "Input please chars to convert to integer:\n" );
             getline_my ( line );
             digit = atoi_2 ( line );
@@ -58,7 +61,7 @@ void main ()
             break;
         case '3':
             printf ( "Enter please line to reverse:\n" );
-            clean_text ( line );
+            clean_text ( line, 100 );
             getline_my ( line );
             reverse_string ( line );
             printf ( "After reverse string seens so:\n%s\n", line );
@@ -66,9 +69,13 @@ void main ()
             break;
         case '4':
             printf ( "Enter please string:\n" );
-            clean_text ( short_line );
-            clean_text ( long_line );
+            clean_text ( short_line, SSIZE );
+            clean_text ( long_line, LSIZE );
             getline_my ( short_line );
+            printf ( "\nlenght of short_line before expand = %d;\n", strlen ( short_line ) );
+            for ( i = 0; i < strlen ( short_line ); ++i ){
+                printf ( "short_line [ i = %d ] = %c = %d;\n", i, short_line [ i ], short_line [ i ] );
+            };
             expand_my ( short_line, long_line );
             printf ( "After expand line seems so:%s\n", long_line );
             exit = 1;
@@ -93,11 +100,11 @@ void getline_my ( char line [] )
 
     for ( i = 0; ( ( c = getchar () ) != EOF ) && c != '\n'; ++i ){
         line [ i ] = c;
-//        printf ( "line[%d] = %c; i = %d;\n", i, line[i], i );
+        printf ( "line[%d] = %c; i = %d;\n", i, line[i], i );
     };
 }
 
-void clean_text ( char text [] )
+void clean_text ( char text [], short int size )
 
 {
     short int i = 0;
@@ -105,8 +112,9 @@ void clean_text ( char text [] )
 
     len = strlen ( text );
 
-    for ( i = 0; i < len; ++i ){
-        text [ i ] = 0;    
+    for ( i = 0; i < size; ++i ){
+        text [ i ] = 0;
+        printf ( "cleaning text...step %d, text [ %d ] = %c = %d;\n", i, i, text [ i ], text [ i ] );    
     };
 
 
@@ -186,7 +194,7 @@ int getarray_sort ( int sort [], char line [] )
     short int i = 0;
 
     printf ( "Input please lenght of array:" );
-    clean_text ( line );
+    clean_text ( line, 100 );
     getline_my ( line );
     len = atoi_2 ( line );
     clean_array ( sort );
@@ -194,7 +202,7 @@ int getarray_sort ( int sort [], char line [] )
     printf ( "And now please input elements of array split them by \"Enter\". Size of array = %d;\n", len );
     for ( i = 0; i < len; ++i ){
         printf ( "Input please %d-th element of array:", i );
-        clean_text ( line );
+        clean_text ( line, 100 );
         getline_my ( line );
         sort [ i ] = atoi_2 ( line );
     };
@@ -233,26 +241,38 @@ void expand_my ( char short_line [], char long_line [] )
 
     long_line [ 0 ] = short_line [ 0 ];
     
-    printf ( "lenght of short_line = %3d;\n", strlen ( short_line ) );
+    printf ( "\nlenght of short_line = %3d; lenght of long_line = %3d;\n\n", strlen ( short_line ), strlen ( long_line ) );
     for ( i = 1, j = 1; i < ( strlen ( short_line ) - 1 ); ++i ){
-        printf ( "i = %3d; j = %3d;\n", i , j );
+        printf ( "\ni = %3d; j = %3d;\n\n", i , j );
         if ( short_line [ i ] == '-' ) {
             if ( ( short_line [ i - 1 ] >= 'a' ) && ( short_line [ i + 1 ] <= 'z' ) ) {
                 long_line [ j - 1 ] = short_line [ i - 1 ];
+
                 printf ( "short_line [ i - 1 = %d ] = %d = %c; long_line [ j - 1 = %d ] = %c;\n", ( i - 1 ) , short_line [ i - 1 ], short_line [ i - 1 ], ( j - 1 ), long_line [ j - 1 ] );
+
                 for ( k = short_line [ i - 1 ] + 1; k <= short_line [ i + 1 ]; ++k ){
                     long_line [ j ] = k;
+
                     printf ( "long_line [ j = %3d ] = %c; k = %3d = %c;\n", j, long_line [ j ], k, k );
+
                     ++j;
                 };
-                
+                ++j;
             };
 /*            else {
                 if () {
                 };
                     else  
             }*/
-        };        
+        }        
+        else {
+            if ( ( short_line [ i ] >= 'a' &&  short_line [ i ] <= 'z' ) || (  short_line [ i ] >='A' &&  short_line [ i ] <= 'Z' ) \
+            || (  short_line [ i ] >= '0' &&  short_line [ i ] <= '9' ) )
+            long_line [ j ] = short_line [ i ];
+            printf ( "easy add\nlong_line [ j = %d ] = %c = %d; short_line [ i = %d ] = %c = %d;\n", j, long_line [ j ], long_line [ j ], i, short_line [ i ], short_line [ i ] );
+            ++j, ++i;
+        }
+
     };
     printf ( "lenght of long_line = %3d;\n", strlen ( long_line ) );
 }
