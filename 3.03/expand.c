@@ -114,7 +114,7 @@ void clean_text ( char text [], short int size )
 
     for ( i = 0; i < size; ++i ){
         text [ i ] = 0;
-        printf ( "cleaning text...step %d, text [ %d ] = %c = %d;\n", i, i, text [ i ], text [ i ] );    
+//        printf ( "cleaning text...step %d, text [ %d ] = %c = %d;\n", i, i, text [ i ], text [ i ] );    
     };
 
 
@@ -231,29 +231,30 @@ void reverse_string ( char s [] )
     };
 }
 
-void expand_my ( char short_line [], char long_line [] )
+void expand_my ( char sl [], char ll [] )
 
 {
     short int i = 0;
     short int j = 0;
     short int k = 0;
     short int per = 0;
+    short int shlen = 0;
 
-    long_line [ 0 ] = short_line [ 0 ];
-    
-    printf ( "\nlenght of short_line = %3d; lenght of long_line = %3d;\n\n", strlen ( short_line ), strlen ( long_line ) );
-    for ( i = 1, j = 1; i < ( strlen ( short_line ) - 1 ); ++i ){
+    ll [ 0 ] = sl [ 0 ];
+/*    
+    printf ( "\nlenght of sl = %3d; lenght of ll = %3d;\n\n", strlen ( sl ), strlen ( ll ) );
+    for ( i = 1, j = 1; i < ( strlen ( sl ) - 1 ); ++i ){
         printf ( "\ni = %3d; j = %3d;\n\n", i , j );
-        if ( short_line [ i ] == '-' ) {
-            if ( ( short_line [ i - 1 ] >= 'a' ) && ( short_line [ i + 1 ] <= 'z' ) ) {
-                long_line [ j - 1 ] = short_line [ i - 1 ];
+        if ( sl [ i ] == '-' ) {
+            if ( ( sl [ i - 1 ] >= 'a' ) && ( sl [ i + 1 ] <= 'z' ) ) {
+                ll [ j - 1 ] = sl [ i - 1 ];
 
-                printf ( "short_line [ i - 1 = %d ] = %d = %c; long_line [ j - 1 = %d ] = %c;\n", ( i - 1 ) , short_line [ i - 1 ], short_line [ i - 1 ], ( j - 1 ), long_line [ j - 1 ] );
+                printf ( "sl [ i - 1 = %d ] = %d = %c; ll [ j - 1 = %d ] = %c;\n", ( i - 1 ) , sl [ i - 1 ], sl [ i - 1 ], ( j - 1 ), ll [ j - 1 ] );
 
-                for ( k = short_line [ i - 1 ] + 1; k <= short_line [ i + 1 ]; ++k ){
-                    long_line [ j ] = k;
+                for ( k = sl [ i - 1 ] + 1; k <= sl [ i + 1 ]; ++k ){
+                    ll [ j ] = k;
 
-                    printf ( "long_line [ j = %3d ] = %c; k = %3d = %c;\n", j, long_line [ j ], k, k );
+                    printf ( "ll [ j = %3d ] = %c; k = %3d = %c; lenght of ll = %d\n", j, ll [ j ], k, k, strlen ( ll ) );
 
                     ++j;
                 };
@@ -263,18 +264,39 @@ void expand_my ( char short_line [], char long_line [] )
                 if () {
                 };
                     else  
-            }*/
+            }
         }        
         else {
-            if ( ( short_line [ i ] >= 'a' &&  short_line [ i ] <= 'z' ) || (  short_line [ i ] >='A' &&  short_line [ i ] <= 'Z' ) \
-            || (  short_line [ i ] >= '0' &&  short_line [ i ] <= '9' ) )
-            long_line [ j ] = short_line [ i ];
-            printf ( "easy add\nlong_line [ j = %d ] = %c = %d; short_line [ i = %d ] = %c = %d;\n", j, long_line [ j ], long_line [ j ], i, short_line [ i ], short_line [ i ] );
+            if ( ( sl [ i ] >= 'a' &&  sl [ i ] <= 'z' ) || (  sl [ i ] >='A' &&  sl [ i ] <= 'Z' ) \
+            || (  sl [ i ] >= '0' &&  sl [ i ] <= '9' ) )
+            ll [ j ] = sl [ i ];
+            printf ( "easy add\nll [ j = %d ] = %c = %d; sl [ i = %d ] = %c = %d; lenght of ll = %d;\n", j, ll [ j ], ll [ j ], i, sl [ i ], sl [ i ], strlen ( ll ) );
             ++j, ++i;
         }
 
     };
-    printf ( "lenght of long_line = %3d;\n", strlen ( long_line ) );
+    printf ( "lenght of ll = %3d;\n", strlen ( ll ) );
+*/    
+    shlen = strlen ( sl );
+    printf ( "Lenght of short_line = %d; of long _line = %d;\n", shlen , strlen ( ll ) );
+
+    for ( i = 1, j = 1; i <= shlen; ++i ) {
+        if ( sl [ i ] == '-' ){
+//            printf ( "sl [ i - 1 = %d ] = %c sl [ i + 1 = %d ] = %c;\n", i - 1, sl [ i - 1 ], i + 1, sl [ i + 1 ] );
+            if ( ( ( sl [ i - 1 ] >= 'a' ) && ( sl [ i - 1 ] <= 'z' ) ) && ( ( sl [ i + 1 ] >= 'a' ) && ( sl [ i + 1 ] <= 'z' ) ) ) {
+                printf ( "before minus j = %d;\n", j );
+                --j;
+                for ( k = sl [ i - 1 ]; k <= sl [ i + 1]; ++k, ++j ){
+                    ll [ j ] = k;
+                };
+                ++j;
+                ll [ j ] = sl [ i + 1 ];
+            };
+
+        };
+    
+    };
+    
 }
 
 
