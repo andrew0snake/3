@@ -13,6 +13,7 @@ void shellsort ( int v [], int n );
 int getarray_sort ( int sort [], char line [] );
 void reverse_string ( char s [] );
 void expand_my ( char short_line [], char long_line [] );
+char check_compat ( char prev, char post );
 
 
 void main ()
@@ -72,10 +73,6 @@ void main ()
             clean_text ( short_line, SSIZE );
             clean_text ( long_line, LSIZE );
             getline_my ( short_line );
-            printf ( "\nlenght of short_line before expand = %d;\n", strlen ( short_line ) );
-            for ( i = 0; i < strlen ( short_line ); ++i ){
-                printf ( "short_line [ i = %d ] = %c = %d;\n", i, short_line [ i ], short_line [ i ] );
-            };
             expand_my ( short_line, long_line );
             printf ( "After expand line seems so:%s\n", long_line );
             exit = 1;
@@ -100,7 +97,7 @@ void getline_my ( char line [] )
 
     for ( i = 0; ( ( c = getchar () ) != EOF ) && c != '\n'; ++i ){
         line [ i ] = c;
-        printf ( "line[%d] = %c; i = %d;\n", i, line[i], i );
+//        printf ( "line[%d] = %c; i = %d;\n", i, line[i], i );
     };
 }
 
@@ -241,62 +238,42 @@ void expand_my ( char sl [], char ll [] )
     short int shlen = 0;
 
     ll [ 0 ] = sl [ 0 ];
-/*    
-    printf ( "\nlenght of sl = %3d; lenght of ll = %3d;\n\n", strlen ( sl ), strlen ( ll ) );
-    for ( i = 1, j = 1; i < ( strlen ( sl ) - 1 ); ++i ){
-        printf ( "\ni = %3d; j = %3d;\n\n", i , j );
-        if ( sl [ i ] == '-' ) {
-            if ( ( sl [ i - 1 ] >= 'a' ) && ( sl [ i + 1 ] <= 'z' ) ) {
-                ll [ j - 1 ] = sl [ i - 1 ];
-
-                printf ( "sl [ i - 1 = %d ] = %d = %c; ll [ j - 1 = %d ] = %c;\n", ( i - 1 ) , sl [ i - 1 ], sl [ i - 1 ], ( j - 1 ), ll [ j - 1 ] );
-
-                for ( k = sl [ i - 1 ] + 1; k <= sl [ i + 1 ]; ++k ){
-                    ll [ j ] = k;
-
-                    printf ( "ll [ j = %3d ] = %c; k = %3d = %c; lenght of ll = %d\n", j, ll [ j ], k, k, strlen ( ll ) );
-
-                    ++j;
-                };
-                ++j;
-            };
-/*            else {
-                if () {
-                };
-                    else  
-            }
-        }        
-        else {
-            if ( ( sl [ i ] >= 'a' &&  sl [ i ] <= 'z' ) || (  sl [ i ] >='A' &&  sl [ i ] <= 'Z' ) \
-            || (  sl [ i ] >= '0' &&  sl [ i ] <= '9' ) )
-            ll [ j ] = sl [ i ];
-            printf ( "easy add\nll [ j = %d ] = %c = %d; sl [ i = %d ] = %c = %d; lenght of ll = %d;\n", j, ll [ j ], ll [ j ], i, sl [ i ], sl [ i ], strlen ( ll ) );
-            ++j, ++i;
-        }
-
-    };
-    printf ( "lenght of ll = %3d;\n", strlen ( ll ) );
-*/    
     shlen = strlen ( sl );
-    printf ( "Lenght of short_line = %d; of long _line = %d;\n", shlen , strlen ( ll ) );
 
     for ( i = 1, j = 1; i <= shlen; ++i ) {
         if ( sl [ i ] == '-' ){
-//            printf ( "sl [ i - 1 = %d ] = %c sl [ i + 1 = %d ] = %c;\n", i - 1, sl [ i - 1 ], i + 1, sl [ i + 1 ] );
-            if ( ( ( sl [ i - 1 ] >= 'a' ) && ( sl [ i - 1 ] <= 'z' ) ) && ( ( sl [ i + 1 ] >= 'a' ) && ( sl [ i + 1 ] <= 'z' ) ) ) {
-                printf ( "before minus j = %d;\n", j );
+            if ( check_compat ( sl [ i - 1], sl [ i + 1] ) ) {
                 --j;
-                for ( k = sl [ i - 1 ]; k <= sl [ i + 1]; ++k, ++j ){
+                for ( k = sl [ i - 1 ]; k < sl [ i + 1 ]; ++k, ++j ){
                     ll [ j ] = k;
                 };
+            }
+            else {
+                ll [ j ] = sl [ i ];
                 ++j;
-                ll [ j ] = sl [ i + 1 ];
             };
 
+        }
+        else {
+            ll [ j ] = sl [ i ];
+            ++j;
         };
-    
     };
-    
+
 }
 
 
+char check_compat ( char prev, char post) 
+
+{
+    char check = 0;
+
+    if ( ( ( prev >= 'a' ) && ( prev <= 'z' ) && ( post >= 'a' ) && ( post <= 'z' ) ) || ( ( prev >= 'A' ) && ( prev <= 'Z' ) && ( post >= 'A' ) && ( post <= 'Z' ) ) \
+    || ( ( prev >= '0' ) && ( prev <= '9' ) && ( post >= '0' ) && ( post <= '9' ) ) ){
+        check = 1;
+    }
+    else 
+        check = 0;
+
+    return check;
+}
