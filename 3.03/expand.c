@@ -268,8 +268,8 @@ char check_compat ( char prev, char post)
 {
     char check = 0;
 
-    if ( ( ( prev >= 'a' ) && ( prev <= 'z' ) && ( post >= 'a' ) && ( post <= 'z' ) ) || ( ( prev >= 'A' ) && ( prev <= 'Z' ) && ( post >= 'A' ) && ( post <= 'Z' ) ) \
-    || ( ( prev >= '0' ) && ( prev <= '9' ) && ( post >= '0' ) && ( post <= '9' ) ) ){
+    if ( ( ( ( prev >= 'a' ) && ( prev <= 'z' ) && ( post >= 'a' ) && ( post <= 'z' ) ) || ( ( prev >= 'A' ) && ( prev <= 'Z' ) && ( post >= 'A' ) && ( post <= 'Z' ) ) \
+    || ( ( prev >= '0' ) && ( prev <= '9' ) && ( post >= '0' ) && ( post <= '9' ) ) ) && ( prev < post ) ) {
         check = 1;
     }
     else 
