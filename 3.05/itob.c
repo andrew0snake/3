@@ -14,7 +14,7 @@ int getarray_sort ( int sort [], char line [] );
 void reverse_string ( char s [] );
 void expand_my ( char short_line [], char long_line [] );
 char check_compat ( char prev, char post );
-void itoa_dw ( int n, char s [ ] );
+void itob ( int n, char s [], short int base );
 
 
 void main ()
@@ -27,9 +27,9 @@ void main ()
     int digit = 0;
     int len = 0;
     int i = 0;
+    short int base = 0;
     char choise = 0;
     char exit = 0;
-    short int converted;
 
     printf ( "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" );
     printf ( "Choose please what you want to do (press q to exit):\n" );
@@ -38,7 +38,7 @@ void main ()
     printf ( "2. Shellsorting.\n" );
     printf ( "3. Reverse string.\n" );
     printf ( "4. Expand string.\n" );
-    printf ( "5. Convert digit to string.\n" );
+    printf ( "5. Convert digit to string which is based on B.\n" );
 
     exit = 0;
     while ( exit == 0 ){
@@ -81,12 +81,17 @@ void main ()
             exit = 1;
             break;
         case '5':
-            printf ( "Input please digit which you want to convert to string:\n" );
-            getline_my ( line );
-            converted = atoi_2 ( line );
+            printf ( "Input please digit to convert:\n" );
+            clean_text ( short_line, SSIZE );
+            getline_my ( short_line );
+            digit = atoi_2 ( short_line );
+            printf ( "And now input please base B:\n" );
+            clean_text ( short_line, SSIZE );
+            getline_my ( short_line );
+            base = atoi_2 ( short_line );
             clean_text ( long_line, LSIZE );
-            itoa_dw ( converted, long_line );
-            printf ( "Getted string is:\n%s;\n", long_line );
+            itob ( digit, long_line, base );
+            printf ( "After convert string seems so:\n%s;\n", long_line );
             exit = 1;
             break;
         case 'q':
@@ -236,7 +241,7 @@ void reverse_string ( char s [] )
         c = s [ i ];
         s [ i ] = s [ j ];
         s [ j ] = c;
-//        printf ( "s [ i = %d ] = %c; s [ j = %d ] = %c;\n", i, s [ i ], j, s [ j ] );
+        printf ( "s [ i = %d ] = %c; s [ j = %d ] = %c;\n", i, s [ i ], j, s [ j ] );
     };
 }
 
@@ -254,7 +259,7 @@ void expand_my ( char sl [], char ll [] )
 
     for ( i = 1, j = 1; i <= shlen; ++i ) {
         if ( sl [ i ] == '-' ){
-            if ( check_compat ( sl [ i - 1 ], sl [ i + 1] ) ) {
+            if ( check_compat ( sl [ i - 1], sl [ i + 1] ) ) {
                 --j;
                 for ( k = sl [ i - 1 ]; k < sl [ i + 1 ]; ++k, ++j ){
                     ll [ j ] = k;
@@ -290,24 +295,19 @@ char check_compat ( char prev, char post)
     return check;
 }
 
-void itoa_dw ( int n, char s [ ] )
+
+void itob ( int n, char s [], short int base )
 
 {
- 
-    int i = 0;
-    int sign = 0;
-    
-    if ( ( sign = n ) < 0 )
-        n = -n;
-    i = 0;
-    do{
-        s [ i++ ] = n % 10 + '0';    
-    } while  ( ( n /= 10) > 0 );
-    
-    if ( sign < 0 )
-        s [ i++ ] = '-';
-         
-    s [ i ] = '\0';
+    short int i = 0;
+    short int len = 0;
+    short int ost = 0;
+
+    for ( i = 0; i < len; i++ ){
+        ost = n % base;
+        s [ i ] = ost;
+        n /= base;
+    };
     reverse_string ( s );
     
 
