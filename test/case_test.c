@@ -1,16 +1,40 @@
 # include <stdio.h>
 
- main () {
+void main () {
 
     int i = 0;
     int c = 0; 
     int nwhite = 0;
     int nother = 0;
     int ndigit [ 10 ];
+    char hex [ 10 ];
     
     for ( i = 0; i < 10; ++i){
         ndigit [ i ] = 0; 
     };
+    
+    printf ( "A = %d;\nB = %d; \nC = %d;\nD = %d;\nE = %d;\n", 'A', 'B', 'C', 'D', 'E' );
+    
+    for ( i = 0; i < 10; i++ ){
+        hex [ i ] = i + 10;
+        printf ( "hex [ i = %d ] = %d = %c;\n", i, hex [ i ], hex [ i ] );
+    };
+    
+    for ( i = 0; i < 10; i++ ){
+        switch ( hex [ i ] ){
+            case 11:
+                hex [ i ] = 'A';
+                break;
+        
+        
+        }
+    };
+    
+    for ( i = 0; i < 10; i++ ){
+        printf ( "hex [ i ] =%d = %c;\n" );
+    
+    };
+    
     
     while ( ( c = getchar () ) != EOF ){
         switch (c) {
@@ -33,6 +57,7 @@
         printf ( " %d", ndigit [ i ] );
     
     printf ( ", символов-разделителей = %d; прочих = %d;\n", nwhite, nother );
-    return 0;
+
+//    return 0;
     
 }
