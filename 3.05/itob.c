@@ -7,6 +7,7 @@
 
 int atoi_2 ( char s [] );
 void getline_my ( char line [] );
+void getline_digit ( char line [] );
 void clean_text ( char text [], short int size );
 void clean_array ( int array [] );
 void shellsort ( int v [], int n );
@@ -44,7 +45,7 @@ void main ()
     while ( exit == 0 ){
         getline_my ( line );
         choise = line [ 0 ];
-        switch (choise) {
+        switch ( choise ) {
         case '1' :
             clean_text ( line, 100 );
             printf ( "Input please chars to convert to integer:\n" );
@@ -83,13 +84,14 @@ void main ()
         case '5':
             printf ( "Input please digit to convert:\n" );
             clean_text ( short_line, SSIZE );
-            getline_my ( short_line );
+            getline_digit ( short_line );
             digit = atoi_2 ( short_line );
             printf ( "And now input please base B:\n" );
             clean_text ( short_line, SSIZE );
-            getline_my ( short_line );
+            getline_digit ( short_line );
             base = atoi_2 ( short_line );
             clean_text ( long_line, LSIZE );
+//            printf ( "Before convert digit = %d; base B = %d; string = %s;\n", digit, base, long_line );
             itob ( digit, long_line, base );
             printf ( "After convert string seems so:\n%s;\n", long_line );
             exit = 1;
@@ -114,6 +116,22 @@ void getline_my ( char line [] )
 
     for ( i = 0; ( ( c = getchar () ) != EOF ) && c != '\n'; ++i ){
         line [ i ] = c;
+//        printf ( "line[%d] = %c; i = %d;\n", i, line[i], i );
+    };
+}
+
+
+void getline_digit ( char line [] )
+
+{
+    int i = 0;
+    int c = 0;
+
+    for ( i = 0; ( ( c = getchar () ) != EOF ) && c != '\n'; ++i ){
+        if ( ( c >= '0' ) && ( c <= '9' ) )
+            line [ i ] = c;
+        else
+            printf ( "wrong input;\n" );
 //        printf ( "line[%d] = %c; i = %d;\n", i, line[i], i );
     };
 }
@@ -241,7 +259,7 @@ void reverse_string ( char s [] )
         c = s [ i ];
         s [ i ] = s [ j ];
         s [ j ] = c;
-        printf ( "s [ i = %d ] = %c; s [ j = %d ] = %c;\n", i, s [ i ], j, s [ j ] );
+//        printf ( "s [ i = %d ] = %c; s [ j = %d ] = %c;\n", i, s [ i ], j, s [ j ] );
     };
 }
 
@@ -303,11 +321,25 @@ void itob ( int n, char s [], short int base )
     short int len = 0;
     short int ost = 0;
 
-    for ( i = 0; i < len; i++ ){
-        ost = n % base;
-        s [ i ] = ost;
-        n /= base;
-    };
+    len = strlen ( s );
+    
+    if ( base >= 10 )
+        for ( i = 0; n > 0; i++ ){
+            ost = n % base + '0';
+            s [ i ] = ost;
+            n /= base;
+        };
+    else {
+        for ( i = 0; n > 0; i++ ){
+            ost = n % base;
+            switch ( ost ){
+                case 11 )
+            
+            };        
+        };
+    
+    }
+    
     reverse_string ( s );
     
 
