@@ -323,23 +323,52 @@ void itob ( int n, char s [], short int base )
 
     len = strlen ( s );
     
-    if ( base >= 10 )
+    if ( base <= 10 )
         for ( i = 0; n > 0; i++ ){
             ost = n % base + '0';
             s [ i ] = ost;
             n /= base;
-        };
+        }
     else {
         for ( i = 0; n > 0; i++ ){
             ost = n % base;
+//            printf ( "At step %d ost = %d;\n", i, ost );
             switch ( ost ){
-                case 11 )
-            
+                case ( 10 ):
+                    s [ i ] = 'A';
+//                    printf ( "In case at 10 s [ i = %d ] = %c;\n", i, s [ i ] );
+                    break;
+                case ( 11 ):
+                    s [ i ] = 'B';
+//                    printf ( "In case at 11 s [ i = %d ] = %c;\n", i, s [ i ] );
+                    break;
+                case ( 12 ):
+                    s [ i ] = 'C';
+//                    printf ( "In case at 12 s [ i = %d ] = %c;\n", i, s [ i ] );
+                    break;
+                case ( 13 ):
+                    s [ i ] = 'D';
+//                    printf ( "In case at 13 s [ i = %d ] = %c;\n", i, s [ i ] );
+                    break;
+                case ( 14 ):
+                    s [ i ] = 'E';
+//                    printf ( "In case at 14 s [ i = %d ] = %c;\n", i, s [ i ] );
+                    break;
+                case ( 15 ):
+                    s [ i ] = 'F';
+//                    printf ( "In case at 15 s [ i = %d ] = %c;\n", i, s [ i ] );
+                    break;
+                default:
+                    s [ i ] = ost + '0';
+//                    printf ( "In case at default s [ i = %d ] = %c;\n", i, s [ i ] );
+                    break;            
             };        
+            n /= base;
         };
     
     }
-    
+//    printf ( "Before reverse string seems so:%s\n", s );
+
     reverse_string ( s );
     
 

@@ -19,19 +19,27 @@ void main () {
         hex [ i ] = i + 10;
         printf ( "hex [ i = %d ] = %d = %c;\n", i, hex [ i ], hex [ i ] );
     };
-    
-    for ( i = 0; i < 10; i++ ){
+
+    printf ( "--------------case---------------\n" );
+
+    for ( i = 0; i < 10; ++i ){
         switch ( hex [ i ] ){
             case 11:
                 hex [ i ] = 'A';
+                printf ( "hex [ i = %d ] = %d = %c!\n", i, hex [ i ], hex [ i ] );
                 break;
-        
+            case 12:
+                hex [ i ] = 'B';
+                printf ( "hex [ i = %d ] = %d = %c!\n", i, hex [ i ], hex [ i ] );
+                break;
         
         }
     };
     
+    printf ( "-------------case-----------------\n" );
+
     for ( i = 0; i < 10; i++ ){
-        printf ( "hex [ i ] =%d = %c;\n" );
+        printf ( "hex [ i = %d] = %d = %c;\n", i, hex [ i ], hex [ i ] );
     
     };
     
