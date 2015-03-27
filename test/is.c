@@ -10,6 +10,7 @@ void main ()
 {
     char s [ 100 ];
     short int i = 0;
+    long long word = 0;
     
     clean_text ( s );
     
@@ -23,7 +24,14 @@ void main ()
     for ( i = 0; isspace ( s [ i ] ); ++i  ){
         printf ( "s [ %d ] = %c;\n", i, s [ i ] );
     };
-    printf ( "123\f123" );
+    printf ( "123\f123\n\n\n" );
+    
+    word = 1;
+    for ( i = 1; i <= 64; ++i  ){
+        word *=2;
+        printf ( "at step %4d word = 2^n - 1 = %22lld;\n", i, word - 1 ); 
+    };
+
 
 }
 void getline_my ( char line [] )
