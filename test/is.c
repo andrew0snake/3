@@ -9,6 +9,7 @@ void is_space_print ( char s [] );
 void main ()
 {
     char s [ 100 ];
+    char word_null = 0;
     short int i = 0;
     long long word = 0;
     
@@ -25,6 +26,8 @@ void main ()
         printf ( "s [ %d ] = %c;\n", i, s [ i ] );
     };
     printf ( "123\f123\n\n\n" );
+    word_null  = '0';
+    printf ( "word = 0 = %d;\n", word_null );
     
     word = 1;
     for ( i = 1; i <= 64; ++i  ){

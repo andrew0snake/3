@@ -14,7 +14,7 @@ int getarray_sort ( int sort [], char line [] );
 void reverse_string ( char s [] );
 void expand_my ( char short_line [], char long_line [] );
 char check_compat ( char prev, char post );
-void itoa_dw ( int n, char s [ ] );
+void itoa_dw ( float n, char s [ ] );
 
 
 void main ()
@@ -290,26 +290,41 @@ char check_compat ( char prev, char post)
     return check;
 }
 
-void itoa_dw ( int n, char s [ ] )
+void itoa_dw ( float n, char s [ ] )
 
 {
  
     int i = 0;
-    int sign = 0;
-    unsigned long long word = 0;
+    float sign = 0;
+    unsigned long word = 0;
+    double word2 = 0;
     
-    word = 1;
-    for ( i = 1; i <= 64; ++i  ){
-        word *=2;
-        printf ( "at step %4d word = 2^n - 1 = %22lld;\n", i, word - 1 ); 
+/*    word = 1;
+    for ( i = 1; i <= 64; ++i ){
+        word *= 2;
+        printf ( "at step %4d word = 2^n - 1 = %20llu;\n", i, word - 1 ); 
     };
-    word -= 1;
+    
+    word2 = - ( word - 1 );
+    printf ( "- ( word - 1 ) = %g;\n", word2 );
+*/    
+    word2 = 1;
+    for ( i = 1; i <= 64; ++i ){
+        word2 *= 2;
+        printf ( "at step %4d word2 = 2^n - 1 = %20.20g;\n", i, word2 - 1 ); 
+    };
+    printf ( "- ( word - 1 ) = %+34.18G;\n", - ( word2 - 1 ) );
+
+    printf ( "size of long = %lu;\n" , sizeof ( unsigned long ) );
+    printf ( "size of double = %G;\n" , sizeof ( float ) );
+    
+    word2 -= 1;
     
     if ( ( sign = n ) < 0 )
         n = -n;
     i = 0;
     do{
-        s [ i++ ] = n % 10 + '0';    
+        s [ i++ ] = n % 10.0 + 48.0;    
     } while  ( ( n /= 10) > 0 );
     
     if ( sign < 0 )
