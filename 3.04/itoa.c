@@ -5,7 +5,7 @@
 #define LSIZE 300
 
 
-int atoi_2 ( char s [] );
+double atoi_2 ( char s [] );
 void getline_my ( char line [] );
 void clean_text ( char text [], short int size );
 void clean_array ( int array [] );
@@ -29,7 +29,7 @@ void main ()
     int i = 0;
     char choise = 0;
     char exit = 0;
-    short int converted;
+    double converted;
 
     printf ( "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" );
     printf ( "Choose please what you want to do (press q to exit):\n" );
@@ -84,9 +84,14 @@ void main ()
             printf ( "Input please digit which you want to convert to string:\n" );
             getline_my ( line );
             converted = atoi_2 ( line );
-            clean_text ( long_line, LSIZE );
-            itoa_dw ( converted, long_line );
-            printf ( "Getted string is:\n%s;\n", long_line );
+            if ( ( converted > 4294967295 ) || ( converted < -4294967295 ) )
+                printf ( "Wrong input, try again ( digin must be < 4294967295 and > -4294967295 ) ;\n" );
+            else {
+                printf ( "Getted converted = %20.20G;\n", converted );
+                clean_text ( long_line, LSIZE );
+                itoa_dw ( converted, long_line );
+                printf ( "Getted string is:\n%s;\n", long_line );
+            };
             exit = 1;
             break;
         case 'q':
@@ -146,11 +151,11 @@ void clean_array ( int array [] )
 
 
 
-int atoi_2 ( char s [] )
+double atoi_2 ( char s [] )
 
 {
     int i = 0;
-    int n = 0;
+    double n = 0;
     int sign = 0;
 
     for ( i = 0; isspace ( s [ i ] ); ++i )
@@ -296,7 +301,8 @@ void itoa_dw ( float n, char s [ ] )
  
     int i = 0;
     float sign = 0;
-    unsigned long word = 0;
+    unsigned long digit = 0;
+    unsigned long limit = 0;
     double word2 = 0;
     
 /*    word = 1;
@@ -307,25 +313,36 @@ void itoa_dw ( float n, char s [ ] )
     
     word2 = - ( word - 1 );
     printf ( "- ( word - 1 ) = %g;\n", word2 );
-*/    
+    
     word2 = 1;
     for ( i = 1; i <= 64; ++i ){
         word2 *= 2;
         printf ( "at step %4d word2 = 2^n - 1 = %20.20g;\n", i, word2 - 1 ); 
     };
     printf ( "- ( word - 1 ) = %+34.18G;\n", - ( word2 - 1 ) );
-
-    printf ( "size of long = %lu;\n" , sizeof ( unsigned long ) );
-    printf ( "size of double = %G;\n" , sizeof ( float ) );
+*/
+    printf ( "size of long = %d;\n" , sizeof ( long ) );
+    printf ( "size of unsigned long = %d;\n" , sizeof ( unsigned long ) );
+    printf ( "size of double = %d;\n" , sizeof ( double ) );
+    printf ( "size of float = %d;\n" , sizeof ( float ) );
+    printf ( "size of int = %d;\n" , sizeof ( int ) );
+    printf ( "size of short int = %d;\n" , sizeof ( short int ) );
+    printf ( "size of long int = %d;\n" , sizeof ( long int ) );
+    printf ( "size of char = %d;\n" , sizeof ( char ) );
     
-    word2 -= 1;
+//    word2 -= 1;
     
-    if ( ( sign = n ) < 0 )
+    if ( ( sign = n ) < 0 ){
         n = -n;
+        digit = n;
+    }
+    else
+        digit = n;
+
     i = 0;
     do{
-        s [ i++ ] = n % 10.0 + 48.0;    
-    } while  ( ( n /= 10) > 0 );
+        s [ i++ ] = digit % 10 + '0';    
+    } while  ( ( digit /= 10 ) > 0 );
     
     if ( sign < 0 )
         s [ i++ ] = '-';
@@ -337,3 +354,4 @@ void itoa_dw ( float n, char s [ ] )
 }
 
 
+ 
