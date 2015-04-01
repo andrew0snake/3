@@ -14,7 +14,7 @@ int getarray_sort ( int sort [], char line [] );
 void reverse_string ( char s [] );
 void expand_my ( char short_line [], char long_line [] );
 char check_compat ( char prev, char post );
-void itoa_dw ( double n, char s [ ] );
+void itoa_dw ( double n, char s [ ], short int wide );
 
 
 void main ()
@@ -27,6 +27,7 @@ void main ()
     int digit = 0;
     int len = 0;
     int i = 0;
+    short int wide = 0;
     char choise = 0;
     char exit = 0;
     double converted;
@@ -88,8 +89,12 @@ void main ()
                 printf ( "Wrong input, try again ( digin must be < 4294967295 and > -4294967295 ) ;\n" );
             else {
                 printf ( "Getted converted = %20.20G;\n", converted );
+                printf ( "And now input please wide of field:\n" );
+                clean_text ( short_line, sizeof short_line );
+                getline_my ( short_line );
+                wide = atoi_2 ( short_line );
                 clean_text ( long_line, LSIZE );
-                itoa_dw ( converted, long_line );
+                itoa_dw ( converted, long_line, wide );
                 printf ( "Getted string is:\n%s;\n", long_line );
             };
             exit = 1;
@@ -141,7 +146,7 @@ void clean_array ( int array [] )
     short int i = 0;
     short int len = 0;
 
-    len = sizeof ( array );
+    len = sizeof  array ;
     
     for ( i = 0; i < len; ++i ){
         array [ i ] = 0;
@@ -295,7 +300,7 @@ char check_compat ( char prev, char post)
     return check;
 }
 
-void itoa_dw ( double n, char s [ ] )
+void itoa_dw ( double n, char s [ ], short int wide )
 
 {
  
@@ -304,49 +309,27 @@ void itoa_dw ( double n, char s [ ] )
     unsigned long digit = 0;
     unsigned long limit = 0;
     double word2 = 0;
-    
-/*    word = 1;
-    for ( i = 1; i <= 64; ++i ){
-        word *= 2;
-        printf ( "at step %4d word = 2^n - 1 = %20llu;\n", i, word - 1 ); 
-    };
-    
-    word2 = - ( word - 1 );
-    printf ( "- ( word - 1 ) = %g;\n", word2 );
-    
-    word2 = 1;
-    for ( i = 1; i <= 64; ++i ){
-        word2 *= 2;
-        printf ( "at step %4d word2 = 2^n - 1 = %20.20g;\n", i, word2 - 1 ); 
-    };
-    printf ( "- ( word - 1 ) = %+34.18G;\n", - ( word2 - 1 ) );
-*/ 
-    printf ( "\n" );
-    printf ( "size of long = %d;\n" , sizeof ( long ) );
-    printf ( "size of unsigned long = %d;\n" , sizeof ( unsigned long ) );
-    printf ( "size of double = %d;\n" , sizeof ( double ) );
-    printf ( "size of float = %d;\n" , sizeof ( float ) );
-    printf ( "size of int = %d;\n" , sizeof ( int ) );
-    printf ( "size of short int = %d;\n" , sizeof ( short int ) );
-    printf ( "size of long int = %d;\n" , sizeof ( long int ) );
-    printf ( "size of char = %d;\n" , sizeof ( char ) );
-    
-//    word2 -= 1;
-    
+        
     if ( ( sign = n ) < 0 ){
         n = -n;
         digit = n;
-        printf ( "n < 0 and digit = %u; n = %u\n", digit, n );
+        printf ( "n < 0 and digit = %lu; n = %G\n", digit, n );
     }
     else{
         digit = n;
-        printf ( "n > 0 and digit = %llu; n = %f;\n", digit, n );
+        printf ( "n > 0 and digit = %lu; n = %f;\n", digit, n );
     };
 
     i = 0;
     do{
         s [ i++ ] = digit % 10 + '0';    
     } while  ( ( digit /= 10 ) > 0 );
+    
+    if ( i < wide ) {
+        do {
+            s [ i++ ] = ' ';
+        } while ( i < wide );    
+    };
     
     if ( sign < 0 )
         s [ i++ ] = '-';
